@@ -1,0 +1,65 @@
+web3-subgraph-demo (master)$ forge script script/Deploy.s.sol:DeployScript \
+    --rpc-url $SEPOLIA_RPC_URL \
+    --private-key $PRIVATE_KEY \
+    --broadcast
+[⠊] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  subgraph01 deployed to: 0xD9716d16E4885b55643406C6365F8db6Fb4cC9E0
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 11155111
+
+Estimated gas price: 2.216613188 gwei
+
+Estimated total gas used for script: 829059
+
+Estimated amount required: 0.001837703113030092 ETH
+
+==========================
+
+##### sepolia
+✅  [Success] Hash: 0x439dc9500d8dfccd350ab619751b563bedd8df2b4ab8c5e4456e3ba5cb00496f
+Contract: ZhSubgraph01
+Contract Address: 0xD9716d16E4885b55643406C6365F8db6Fb4cC9E0
+Block: 11577767
+Paid: 0.00066228455475214 ETH (637738 gas * 1.03849003 gwei)
+
+✅ Sequence #1 on sepolia | Total Paid: 0.00066228455475214 ETH (637738 gas * avg 1.03849003 gwei)
+                                                                                                                                                                               
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/zh/work/web3-subgraph-demo/broadcast/Deploy.s.sol/11155111/run-latest.json
+
+Sensitive values saved to: /home/zh/work/web3-subgraph-demo/cache/Deploy.s.sol/11155111/run-latest.json
+
+web3-subgraph-demo (master)$ 
+
+
+
+
+
+
+
+web3-subgraph-demo (master)$ 
+web3-subgraph-demo (master)$ 
+web3-subgraph-demo (master)$ 
+web3-subgraph-demo (master)$ 
+forge verify-contract 0xD9716d16E4885b55643406C6365F8db6Fb4cC9E0 src/ZhSubgraph01.sol:ZhSubgraph01 \
+    --chain sepolia
+Start verifying contract `0xD9716d16E4885b55643406C6365F8db6Fb4cC9E0` deployed on sepolia
+Attempting to verify on Sourcify. Pass the --etherscan-api-key <API_KEY> to verify on Etherscan, or use the --verifier flag to verify on another provider.
+
+Submitting verification for [ZhSubgraph01] "0xD9716d16E4885b55643406C6365F8db6Fb4cC9E0".
+Submitted contract for verification:
+        Verification Job ID: `678b0182-fd7e-4f7c-8cb0-1f3b30e9f67e`
+        URL: https://sourcify.dev/server/v2/verify/678b0182-fd7e-4f7c-8cb0-1f3b30e9f67e
+web3-subgraph-demo (master)$ 

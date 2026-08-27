@@ -1,0 +1,50 @@
+specVersion: 1.3.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ZhSubgraph01
+    network: sepolia
+    source:
+      address: "0xD9716d16E4885b55643406C6365F8db6Fb4cC9E0"
+      abi: ZhSubgraph01
+      startBlock: 11580950
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - OrderCanceled
+        - OrderCreated
+        - OrderPaid
+        - ProdCreated
+        - ProdDeleted
+        - ProdModified
+        - UserCreated
+        - UserDeleted
+        - UserModified
+      abis:
+        - name: ZhSubgraph01
+          file: ./abis/ZhSubgraph01.json
+      eventHandlers:
+        - event: OrderCanceled(uint256)
+          handler: handleOrderCanceled
+        - event: OrderCreated(indexed uint256,indexed address,indexed uint256,uint256,uint256)
+          handler: handleOrderCreated
+        - event: OrderPaid(uint256)
+          handler: handleOrderPaid
+        - event: ProdCreated(indexed uint256,string,uint256)
+          handler: handleProdCreated
+        - event: ProdDeleted(indexed uint256)
+          handler: handleProdDeleted
+        - event: ProdModified(indexed uint256,string,uint256)
+          handler: handleProdModified
+        - event: UserCreated(indexed address,uint256,string)
+          handler: handleUserCreated
+        - event: UserDeleted(indexed address)
+          handler: handleUserDeleted
+        - event: UserModified(indexed address,uint256,string)
+          handler: handleUserModified
+      file: ./src/zh-subgraph-01.ts

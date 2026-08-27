@@ -1,0 +1,11 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+# 指定 Solidity 版本（固定版本）
+solc = "0.8.28"
+# # 让 Foundry 根据合约中的 pragma 自动选择版本
+# auto_detect_solc = true
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

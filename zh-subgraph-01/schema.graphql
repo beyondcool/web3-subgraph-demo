@@ -1,0 +1,83 @@
+type OrderCanceled @entity(immutable: true) {
+  id: Bytes!
+  orderId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrderCreated @entity(immutable: true) {
+  id: Bytes!
+  orderId: BigInt! # uint256
+  userAddr: Bytes! # address
+  prodId: BigInt! # uint256
+  amount: BigInt! # uint256
+  totalPrice: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrderPaid @entity(immutable: true) {
+  id: Bytes!
+  orderId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ProdCreated @entity(immutable: true) {
+  id: Bytes!
+  prodId: BigInt! # uint256
+  prodName: String! # string
+  unitPrice: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ProdDeleted @entity(immutable: true) {
+  id: Bytes!
+  prodId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ProdModified @entity(immutable: true) {
+  id: Bytes!
+  prodId: BigInt! # uint256
+  prodName: String! # string
+  unitPrice: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UserCreated @entity(immutable: true) {
+  id: Bytes!
+  userAddr: Bytes! # address
+  age: BigInt! # uint256
+  name: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UserDeleted @entity(immutable: true) {
+  id: Bytes!
+  userAddr: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UserModified @entity(immutable: true) {
+  id: Bytes!
+  userAddr: Bytes! # address
+  age: BigInt! # uint256
+  name: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

@@ -1,0 +1,279 @@
+[
+  {
+    "name": "OrderCanceled",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "OrderCreated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "userAddr",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "prodId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "totalPrice",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "OrderPaid",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "orderId",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "ProdCreated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "prodId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "prodName",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "unitPrice",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "ProdDeleted",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "prodId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "ProdModified",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "prodId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "prodName",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "unitPrice",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "UserCreated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "userAddr",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "age",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "UserDeleted",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "userAddr",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "UserModified",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "userAddr",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "age",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "cancelOrder",
+    "type": "function",
+    "inputs": [
+      { "name": "orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "createOrder",
+    "type": "function",
+    "inputs": [
+      { "name": "prodId", "type": "uint256", "internalType": "uint256" },
+      { "name": "amount", "type": "uint256", "internalType": "uint256" },
+      { "name": "totalPrice", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "createProd",
+    "type": "function",
+    "inputs": [
+      { "name": "prodName", "type": "string", "internalType": "string" },
+      { "name": "unitPrice", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "createUser",
+    "type": "function",
+    "inputs": [
+      { "name": "age", "type": "uint256", "internalType": "uint256" },
+      { "name": "name", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [{ "name": "rs", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "deleteProd",
+    "type": "function",
+    "inputs": [
+      { "name": "prodId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "deleteUser",
+    "type": "function",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "modifyProd",
+    "type": "function",
+    "inputs": [
+      { "name": "prodId", "type": "uint256", "internalType": "uint256" },
+      { "name": "prodName", "type": "string", "internalType": "string" },
+      { "name": "unitPrice", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "modifyUser",
+    "type": "function",
+    "inputs": [
+      { "name": "age", "type": "uint256", "internalType": "uint256" },
+      { "name": "name", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [
+      { "name": "result", "type": "string", "internalType": "string" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "payOrder",
+    "type": "function",
+    "inputs": [
+      { "name": "orderId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  }
+]
