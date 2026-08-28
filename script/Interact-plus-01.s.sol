@@ -17,7 +17,7 @@ contract InteractScript is Script {
         address contractAddress = 0x0648396CAD3AFd367594a6651A22C01cdc881428; // 替换为你的合约地址
         ZhSubgraph01 zh = ZhSubgraph01(contractAddress);
 
-        zh.createProd("foobar", 1499);
+        zh.createProd("note x", 3000);
 
         vm.stopBroadcast();
     }
