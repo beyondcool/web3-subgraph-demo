@@ -1,5 +1,43 @@
 [
   {
+    "name": "FavoriteCreated",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "userAddr",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "prodId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "name": "FavoriteDeleted",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "userAddr",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "prodId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
     "name": "OrderCanceled",
     "type": "event",
     "inputs": [
@@ -189,6 +227,16 @@
     "anonymous": false
   },
   {
+    "name": "addFavorite",
+    "type": "function",
+    "inputs": [
+      { "name": "userAddr", "type": "address", "internalType": "address" },
+      { "name": "prodId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  },
+  {
     "name": "cancelOrder",
     "type": "function",
     "inputs": [
@@ -201,6 +249,7 @@
     "name": "createOrder",
     "type": "function",
     "inputs": [
+      { "name": "userAddr", "type": "address", "internalType": "address" },
       { "name": "prodId", "type": "uint256", "internalType": "uint256" },
       { "name": "amount", "type": "uint256", "internalType": "uint256" },
       { "name": "totalPrice", "type": "uint256", "internalType": "uint256" }
@@ -222,10 +271,21 @@
     "name": "createUser",
     "type": "function",
     "inputs": [
+      { "name": "userAddr", "type": "address", "internalType": "address" },
       { "name": "age", "type": "uint256", "internalType": "uint256" },
       { "name": "name", "type": "string", "internalType": "string" }
     ],
     "outputs": [{ "name": "rs", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "name": "delFavorite",
+    "type": "function",
+    "inputs": [
+      { "name": "userAddr", "type": "address", "internalType": "address" },
+      { "name": "prodId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
     "stateMutability": "nonpayable"
   },
   {
@@ -240,7 +300,9 @@
   {
     "name": "deleteUser",
     "type": "function",
-    "inputs": [],
+    "inputs": [
+      { "name": "userAddr", "type": "address", "internalType": "address" }
+    ],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
@@ -259,6 +321,7 @@
     "name": "modifyUser",
     "type": "function",
     "inputs": [
+      { "name": "userAddr", "type": "address", "internalType": "address" },
       { "name": "age", "type": "uint256", "internalType": "uint256" },
       { "name": "name", "type": "string", "internalType": "string" }
     ],

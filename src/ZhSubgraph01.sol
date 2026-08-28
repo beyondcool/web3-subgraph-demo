@@ -18,6 +18,9 @@ contract ZhSubgraph01 {
     event ProdModified(uint indexed prodId, string prodName, uint unitPrice);
     event ProdDeleted(uint indexed prodId);
 
+    event FavoriteCreated(address indexed userAddr, uint indexed prodId);
+    event FavoriteDeleted(address indexed userAddr, uint indexed prodId);
+
     // 用户数据（用户地址由参数传入，便于脚本模拟多个用户）
     function createUser(address userAddr, uint age, string calldata name) external returns (bool rs) {
         emit UserCreated(userAddr, age, name);
@@ -64,6 +67,16 @@ contract ZhSubgraph01 {
 
     function payOrder(uint orderId) external returns(bool){
         emit OrderPaid(orderId);
+        return true;
+    }
+
+    // 用户收藏产品
+    function addFavorite(address userAddr, uint prodId) external returns (bool) {
+        emit FavoriteCreated(userAddr, prodId);
+        return true;
+    }
+    function delFavorite(address userAddr, uint prodId) external returns (bool) {
+        emit FavoriteDeleted(userAddr, prodId);
         return true;
     }
 }

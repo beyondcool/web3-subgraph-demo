@@ -1,6 +1,8 @@
 import { newMockEvent } from "matchstick-as"
-import { ethereum, BigInt, Address } from "@graphprotocol/graph-ts"
+import { ethereum, Address, BigInt } from "@graphprotocol/graph-ts"
 import {
+  FavoriteCreated,
+  FavoriteDeleted,
   OrderCanceled,
   OrderCreated,
   OrderPaid,
@@ -11,6 +13,42 @@ import {
   UserDeleted,
   UserModified
 } from "../generated/ZhSubgraph01/ZhSubgraph01"
+
+export function createFavoriteCreatedEvent(
+  userAddr: Address,
+  prodId: BigInt
+): FavoriteCreated {
+  let favoriteCreatedEvent = changetype<FavoriteCreated>(newMockEvent())
+
+  favoriteCreatedEvent.parameters = new Array()
+
+  favoriteCreatedEvent.parameters.push(
+    new ethereum.EventParam("userAddr", ethereum.Value.fromAddress(userAddr))
+  )
+  favoriteCreatedEvent.parameters.push(
+    new ethereum.EventParam("prodId", ethereum.Value.fromUnsignedBigInt(prodId))
+  )
+
+  return favoriteCreatedEvent
+}
+
+export function createFavoriteDeletedEvent(
+  userAddr: Address,
+  prodId: BigInt
+): FavoriteDeleted {
+  let favoriteDeletedEvent = changetype<FavoriteDeleted>(newMockEvent())
+
+  favoriteDeletedEvent.parameters = new Array()
+
+  favoriteDeletedEvent.parameters.push(
+    new ethereum.EventParam("userAddr", ethereum.Value.fromAddress(userAddr))
+  )
+  favoriteDeletedEvent.parameters.push(
+    new ethereum.EventParam("prodId", ethereum.Value.fromUnsignedBigInt(prodId))
+  )
+
+  return favoriteDeletedEvent
+}
 
 export function createOrderCanceledEvent(orderId: BigInt): OrderCanceled {
   let orderCanceledEvent = changetype<OrderCanceled>(newMockEvent())

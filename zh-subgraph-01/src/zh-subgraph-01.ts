@@ -1,4 +1,6 @@
 import {
+  FavoriteCreated as FavoriteCreatedEvent,
+  FavoriteDeleted as FavoriteDeletedEvent,
   OrderCanceled as OrderCanceledEvent,
   OrderCreated as OrderCreatedEvent,
   OrderPaid as OrderPaidEvent,
@@ -10,6 +12,8 @@ import {
   UserModified as UserModifiedEvent
 } from "../generated/ZhSubgraph01/ZhSubgraph01"
 import {
+  FavoriteCreated,
+  FavoriteDeleted,
   OrderCanceled,
   OrderCreated,
   OrderPaid,
@@ -20,6 +24,34 @@ import {
   UserDeleted,
   UserModified
 } from "../generated/schema"
+
+export function handleFavoriteCreated(event: FavoriteCreatedEvent): void {
+  let entity = new FavoriteCreated(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.userAddr = event.params.userAddr
+  entity.prodId = event.params.prodId
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleFavoriteDeleted(event: FavoriteDeletedEvent): void {
+  let entity = new FavoriteDeleted(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.userAddr = event.params.userAddr
+  entity.prodId = event.params.prodId
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
 
 export function handleOrderCanceled(event: OrderCanceledEvent): void {
   let entity = new OrderCanceled(

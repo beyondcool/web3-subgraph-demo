@@ -1,3 +1,21 @@
+type FavoriteCreated @entity(immutable: true) {
+  id: Bytes!
+  userAddr: Bytes! # address
+  prodId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type FavoriteDeleted @entity(immutable: true) {
+  id: Bytes!
+  userAddr: Bytes! # address
+  prodId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
 type OrderCanceled @entity(immutable: true) {
   id: Bytes!
   orderId: BigInt! # uint256

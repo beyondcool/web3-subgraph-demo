@@ -79,6 +79,27 @@ contract InteractScript is Script {
         zh.deleteProd(20);
         zh.deleteUser(userAddrs[9]);
 
+        // ==================== 8. 收藏数据：5 个用户，每人收藏 3~5 个产品 ====================
+        address[5] memory favUsers = [
+            userAddrs[0], userAddrs[1], userAddrs[2], userAddrs[3], userAddrs[4]
+        ];
+
+        for (uint256 u = 0; u < favUsers.length; u++) {
+            uint256 favCount = 3 + (u % 3); // 3 / 4 / 5
+            for (uint256 k = 0; k < favCount; k++) {
+                // 产品 id 错开，避免所有人收藏完全相同的集合（1..19）
+                uint256 prodId = (u * 3 + k) % (NUM_PRODS - 1) + 1;
+                zh.addFavorite(favUsers[u], prodId);
+            }
+        }
+
+        // ==================== 9. 少量取消收藏 ====================
+        for (uint256 u = 0; u < favUsers.length; u++) {
+            // 各自收藏集合的第一个产品（算法确保已经添加过这些“收藏”）
+            uint256 delProdId = (u * 3) % (NUM_PRODS - 1) + 1;
+            zh.delFavorite(favUsers[u], delProdId);
+        }
+
         vm.stopBroadcast();
     }
 }
