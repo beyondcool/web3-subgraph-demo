@@ -17,7 +17,7 @@ contract InteractScript is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // 2. 连接已部署的合约
-        address contractAddress = 0xD9716d16E4885b55643406C6365F8db6Fb4cC9E0; // 替换为你的合约地址
+        address contractAddress = 0x0648396CAD3AFd367594a6651A22C01cdc881428; // 替换为你的合约地址
         ZhSubgraph01 zh = ZhSubgraph01(contractAddress);
 
         // ==================== 3. 创建用户（10条）====================

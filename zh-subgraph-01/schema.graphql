@@ -1,101 +1,141 @@
-type FavoriteCreated @entity(immutable: true) {
+# 面向领域的数据模型（而非按事件建模）
+#
+# 领域实体：
+#   - User     用户（以链上地址为主键）
+#   - Product  产品（由合约自增 prodId 标识）
+#   - Order    订单（由合约自增 orderId 标识，关联 User 与 Product）
+#   - Favorite 收藏（User 与 Product 的多对多关系，immutable）
+#
+# 事件 -> 实体的映射关系：
+#   UserCreated / UserModified / UserDeleted  -> User
+#   ProdCreated / ProdModified / ProdDeleted  -> Product
+#   OrderCreated / OrderPaid / OrderCanceled  -> Order（含 status 状态机）
+#   FavoriteCreated / FavoriteDeleted         -> Favorite
+
+type User @entity(immutable: false) {
+  "用户链上地址（address，转小写十六进制）"
   id: Bytes!
-  userAddr: Bytes! # address
-  prodId: BigInt! # uint256
+
+  age: BigInt!
+
+  name: String!
+
+  "该用户的所有订单，按 Order.userId 派生"
+  orders: [Order!]! @derivedFrom(field: "user")
+
+  "该用户的所有收藏，按 Favorite.userId 派生"
+  favorites: [Favorite!]! @derivedFrom(field: "user")
+
+  "是否仍存在（UserDeleted 后为 false，保留历史便于统计）"
+  active: Boolean!
+
+  "首次创建时的区块号"
+  createdAtBlock: BigInt!
+
+  "最后一次修改时的区块号"
+  updatedAtBlock: BigInt!
+
+  "最后一次修改时的时间戳（秒）"
+  updatedAtTimestamp: BigInt!
+}
+
+type Product @entity(immutable: false) {
+  "产品 ID（合约 nextProdId 自增，十进制字符串）"
+  id: String!
+
+  prodName: String!
+
+  unitPrice: BigInt!
+
+  "该产品的所有订单，按 Order.productId 派生"
+  orders: [Order!]! @derivedFrom(field: "product")
+
+  "收藏该产品的所有记录，按 Favorite.productId 派生"
+  favoritedBy: [Favorite!]! @derivedFrom(field: "product")
+
+  "是否已删除"
+  active: Boolean!
+
+  createdAtBlock: BigInt!
+
+  updatedAtBlock: BigInt!
+
+  updatedAtTimestamp: BigInt!
+}
+
+enum OrderStatus {
+  "已创建，待支付"
+  Created
+  "已支付"
+  Paid
+  "已取消"
+  Canceled
+}
+
+type Order @entity(immutable: false) {
+  "订单 ID（合约 nextOrderId 自增，十进制字符串）"
+  id: String!
+
+  "下单用户"
+  user: User!
+
+  "订单产品"
+  product: Product!
+
+  "购买数量"
+  amount: BigInt!
+
+  "订单总价"
+  totalPrice: BigInt!
+
+  "订单状态：Created -> Paid / Canceled"
+  status: OrderStatus!
+
+  createdAtBlock: BigInt!
+
+  createdAtTimestamp: BigInt!
+
+  "状态变更（支付/取消）时的区块号"
+  updatedAtBlock: BigInt!
+
+  updatedAtTimestamp: BigInt!
+
+  "订单创建交易哈希"
+  txHash: Bytes!
+}
+
+"用户收藏，immutable：一条记录代表一次收藏关系；删除即移除实体"
+type Favorite @entity(immutable: false) {
+  "组合键：user地址-productId（如 0xabc-42）"
+  id: Bytes!
+
+  "收藏者"
+  user: User!
+
+  "被收藏的产品"
+  product: Product!
+
   blockNumber: BigInt!
+
   blockTimestamp: BigInt!
+
   transactionHash: Bytes!
 }
 
-type FavoriteDeleted @entity(immutable: true) {
+# 可选：全局统计实体，id 固定为 "stats"
+type Stats @entity(immutable: false) {
   id: Bytes!
-  userAddr: Bytes! # address
-  prodId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
 
-type OrderCanceled @entity(immutable: true) {
-  id: Bytes!
-  orderId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
+  userCount: BigInt!
 
-type OrderCreated @entity(immutable: true) {
-  id: Bytes!
-  orderId: BigInt! # uint256
-  userAddr: Bytes! # address
-  prodId: BigInt! # uint256
-  amount: BigInt! # uint256
-  totalPrice: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
+  productCount: BigInt!
 
-type OrderPaid @entity(immutable: true) {
-  id: Bytes!
-  orderId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
+  orderCount: BigInt!
 
-type ProdCreated @entity(immutable: true) {
-  id: Bytes!
-  prodId: BigInt! # uint256
-  prodName: String! # string
-  unitPrice: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
+  paidOrderCount: BigInt!
 
-type ProdDeleted @entity(immutable: true) {
-  id: Bytes!
-  prodId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
+  "已支付订单的总销售额（totalPrice 之和）"
+  totalRevenue: BigInt!
 
-type ProdModified @entity(immutable: true) {
-  id: Bytes!
-  prodId: BigInt! # uint256
-  prodName: String! # string
-  unitPrice: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type UserCreated @entity(immutable: true) {
-  id: Bytes!
-  userAddr: Bytes! # address
-  age: BigInt! # uint256
-  name: String! # string
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type UserDeleted @entity(immutable: true) {
-  id: Bytes!
-  userAddr: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type UserModified @entity(immutable: true) {
-  id: Bytes!
-  userAddr: Bytes! # address
-  age: BigInt! # uint256
-  name: String! # string
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  favoriteCount: BigInt!
 }

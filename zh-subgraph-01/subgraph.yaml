@@ -16,17 +16,11 @@ dataSources:
       apiVersion: 0.0.9
       language: wasm/assemblyscript
       entities:
-        - FavoriteCreated
-        - FavoriteDeleted
-        - OrderCanceled
-        - OrderCreated
-        - OrderPaid
-        - ProdCreated
-        - ProdDeleted
-        - ProdModified
-        - UserCreated
-        - UserDeleted
-        - UserModified
+        - User
+        - Product
+        - Order
+        - Favorite
+        - Stats
       abis:
         - name: ZhSubgraph01
           file: ./abis/ZhSubgraph01.json
